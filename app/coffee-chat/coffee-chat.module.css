@@ -1,0 +1,156 @@
+.game {
+  position: relative;
+  width: 100%;
+  height: 100svh;
+  min-height: 540px;
+  overflow: hidden;
+  background: #030610;
+  color: #eefbff;
+  font-family: Arial, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+}
+
+.world, .world canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+.world { touch-action: none; }
+.world canvas { display: block; }
+.vignette, .gameScanlines { position: absolute; inset: 0; pointer-events: none; }
+.vignette { background: radial-gradient(ellipse at 50% 46%, transparent 30%, rgba(0, 2, 10, .38) 76%, rgba(0, 2, 10, .7)); }
+.gameScanlines { background: repeating-linear-gradient(to bottom, transparent 0 3px, rgba(0, 0, 0, .1) 4px); opacity: .55; }
+
+.gameHeader {
+  position: absolute;
+  z-index: 20;
+  top: 0;
+  right: 0;
+  left: 0;
+  display: flex;
+  height: 76px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 25px;
+  padding: 0 clamp(24px, 4vw, 70px);
+  border-bottom: 1px solid rgba(92, 219, 240, .2);
+  background: linear-gradient(to bottom, rgba(2, 7, 19, .75), rgba(2, 7, 19, .15));
+  font-family: "Courier New", monospace;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .16em;
+}
+.homeLink { display: inline-flex; align-items: center; gap: 13px; color: #edfbff; transition: color .25s, text-shadow .25s; }
+.homeLink:hover { color: #58edff; text-shadow: 0 0 13px #21d3f1; }
+.homeLink span { color: #58edff; font-size: 19px; }
+.homeLink:focus-visible, .enterButton:focus-visible, .interactPrompt:focus-visible, .terminalPanel button:focus-visible, .panelAction:focus-visible, .returnToLake:focus-visible, .cinematicSkip:focus-visible { outline: 2px solid #62efff; outline-offset: 5px; }
+.districtLabel { display: inline-flex; align-items: center; gap: 10px; color: #78ecf8; text-shadow: 0 0 15px rgba(39, 224, 244, .5); }
+.districtLabel i { width: 6px; height: 6px; border-radius: 50%; background: #70f5ff; box-shadow: 0 0 13px #62efff; animation: blink 1.8s infinite; }
+.districtLabel b { color: #667e91; }
+.gameClock { color: #8194a8; }
+
+.entryOverlay { position: absolute; z-index: 10; inset: 0; display: flex; align-items: center; padding: 90px clamp(24px, 7vw, 120px) 40px; pointer-events: none; }
+.entryOverlay::before { position: absolute; z-index: -1; inset: 0; background: linear-gradient(90deg, rgba(2, 5, 17, .87) 0%, rgba(2, 6, 18, .68) 37%, rgba(2, 6, 18, .14) 78%); content: ""; }
+.entryPanel { width: min(570px, 100%); pointer-events: auto; animation: fadeIn .9s both; }
+.entryKicker, .terminalKicker { display: inline-flex; align-items: center; gap: 10px; color: #75eefe; font-family: "Courier New", monospace; font-size: 11px; font-weight: 700; letter-spacing: .2em; text-shadow: 0 0 16px rgba(57, 230, 255, .5); }
+.entryKicker i { width: 7px; height: 7px; border: 1px solid #70f7ff; transform: rotate(45deg); box-shadow: 0 0 10px #70f7ff; }
+.entryPanel h1 { margin-top: 23px; font-family: Impact, "Arial Black", Arial, sans-serif; font-size: clamp(70px, 7.8vw, 106px); font-weight: 900; line-height: .88; letter-spacing: -.04em; text-shadow: 0 0 40px rgba(219, 240, 255, .14); }
+.entryPanel h1 span { display: inline-block; margin-top: 10px; background: linear-gradient(90deg, #55f3ff 8%, #83d9f2 55%, #ff4ca6); background-clip: text; color: transparent; filter: drop-shadow(0 0 24px rgba(31, 222, 247, .35)); }
+.entryKorean { margin-top: 32px; color: #f0faff; font-size: clamp(20px, 2vw, 29px); font-weight: 700; line-height: 1.48; letter-spacing: -.055em; text-shadow: 0 2px 20px rgba(0, 0, 0, .8); }
+.entryDescription { max-width: 420px; margin-top: 17px; color: #9bb2c4; font-size: 14px; line-height: 1.9; word-break: keep-all; }
+.enterButton { display: inline-flex; min-width: 215px; height: 56px; align-items: center; justify-content: space-between; gap: 24px; margin-top: 33px; padding: 0 22px; border: 1px solid #70eeff; background: rgba(7, 45, 61, .85); box-shadow: 0 0 27px rgba(34, 225, 255, .16), inset 0 0 18px rgba(40, 209, 243, .1); color: #f3fdff; font-size: 14px; font-weight: 700; cursor: pointer; clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 0 100%); transition: background .25s, box-shadow .25s, transform .25s; }
+.enterButton:hover { transform: translateY(-3px); background: rgba(15, 80, 99, .94); box-shadow: 0 0 35px rgba(34, 225, 255, .35); }
+.enterButton:disabled { cursor: progress; opacity: .68; transform: none; }
+.enterButton span { color: #74efff; font-size: 21px; }
+.entryControl { display: block; margin-top: 22px; color: #6e91a4; font-family: "Courier New", monospace; font-size: 10px; font-weight: 700; letter-spacing: .1em; }
+
+.cinematicOverlay { position: absolute; z-index: 18; inset: 0; pointer-events: none; }
+.cinematicShade { position: absolute; inset: 0; background: #020712; opacity: 0; transition: opacity .8s ease; }
+.cinematic_blackout .cinematicShade { opacity: 1; }
+.cinematic_welcome .cinematicShade { opacity: .4; }
+.cinematic_settle .cinematicShade { opacity: .08; }
+.cinematic_welcome::after { position: absolute; top: 50%; left: 50%; width: min(70vw, 850px); height: min(70vw, 850px); border: 1px solid rgba(132, 241, 248, .24); border-radius: 50%; box-shadow: 0 0 85px rgba(87, 229, 246, .17), inset 0 0 85px rgba(87, 229, 246, .09); transform: translate(-50%, -50%) scale(.65); opacity: 0; content: ""; animation: welcomeHalo 1.7s ease-out .05s both; }
+.cinematicCaption { position: absolute; bottom: clamp(70px, 9vh, 110px); left: clamp(25px, 7vw, 110px); display: grid; gap: 13px; transform: translateY(0); opacity: 1; transition: opacity .65s ease, transform .65s ease; text-shadow: 0 4px 30px #000; }
+.cinematicCaption span { color: #7feefa; font: 700 11px "Courier New", monospace; letter-spacing: .25em; }
+.cinematicCaption strong { color: #f4fbfb; font-size: clamp(34px, 5.8vw, 78px); font-weight: 800; letter-spacing: -.065em; line-height: 1.12; }
+.cinematicCaption p { color: #d2e4e8; font-size: clamp(14px, 1.35vw, 19px); font-weight: 600; }
+.cinematic_blackout .cinematicCaption, .cinematic_settle .cinematicCaption { transform: translateY(16px); opacity: 0; }
+.cinematic_welcome .cinematicCaption { bottom: 30%; right: 20px; left: 20px; justify-items: center; text-align: center; animation: welcomeReveal .75s ease both; }
+.cinematic_welcome .cinematicCaption strong { font-size: clamp(56px, 9vw, 136px); background: linear-gradient(110deg, #f9fcff, #7ff3fb 60%, #f5accf); background-clip: text; color: transparent; filter: drop-shadow(0 0 28px rgba(68, 226, 249, .24)); }
+.cinematicSkip { position: absolute; right: clamp(24px, 4vw, 70px); bottom: 40px; padding: 10px 2px; border: 0; background: transparent; color: #a1c8d0; font: 700 11px "Courier New", monospace; letter-spacing: .1em; cursor: pointer; pointer-events: auto; text-shadow: 0 2px 10px #000; }
+.cinematicSkip:hover { color: #f3fcfe; }
+.returnToLake { position: absolute; z-index: 12; top: 102px; left: clamp(24px, 4vw, 70px); padding: 10px 13px; border: 1px solid rgba(205, 179, 143, .45); border-radius: 6px; background: rgba(24, 29, 31, .72); color: #e5dccb; font: 700 10px "Courier New", monospace; letter-spacing: .07em; cursor: pointer; backdrop-filter: blur(9px); }
+.returnToLake:hover { color: white; border-color: #d9bb91; }
+.lobbyGuide { position: absolute; z-index: 12; top: 103px; right: clamp(24px, 4vw, 70px); display: grid; gap: 12px; width: 255px; padding: 20px; border: 1px solid rgba(205, 179, 143, .44); border-radius: 12px; background: rgba(27, 31, 33, .88); box-shadow: 0 12px 38px rgba(0, 0, 0, .19); backdrop-filter: blur(16px); }
+.lobbyGuide > span { color: #d3b58e; font: 700 10px "Courier New", monospace; letter-spacing: .12em; }
+.lobbyGuide strong { color: #f2f7f3; font-size: 16px; line-height: 1.5; letter-spacing: -.035em; }
+.lobbyGuide button { display: flex; align-items: center; justify-content: space-between; width: 100%; margin-top: 2px; padding: 11px 0 2px; border: 0; border-top: 1px solid rgba(205, 179, 143, .35); background: transparent; color: #e6c8a0; font-size: 12px; font-weight: 700; cursor: pointer; }
+.lobbyGuide button:hover { color: #fff; }
+
+.crosshair { position: absolute; z-index: 8; top: 50%; left: 50%; width: 22px; height: 22px; transform: translate(-50%, -50%); pointer-events: none; }
+.crosshair::before, .crosshair::after, .crosshair span::before, .crosshair span::after { position: absolute; background: rgba(182, 253, 255, .8); box-shadow: 0 0 8px #61edff; content: ""; }
+.crosshair::before, .crosshair::after { left: 10px; width: 2px; height: 6px; }
+.crosshair::before { top: 0; }.crosshair::after { bottom: 0; }
+.crosshair span::before, .crosshair span::after { top: 10px; width: 6px; height: 2px; }
+.crosshair span::before { left: 0; }.crosshair span::after { right: 0; }
+.gameHud { position: absolute; z-index: 10; right: clamp(24px, 4vw, 70px); bottom: 28px; left: clamp(24px, 4vw, 70px); display: flex; align-items: flex-end; justify-content: flex-end; gap: 24px; pointer-events: none; }
+.instructions { max-width: 340px; color: #bdd3dd; font-family: "Courier New", monospace; font-size: 10px; font-weight: 700; line-height: 1.6; text-align: right; text-shadow: 0 2px 8px #000; }
+.interactPrompt { position: absolute; z-index: 12; bottom: 124px; left: 50%; display: flex; align-items: center; gap: 12px; width: max-content; max-width: calc(100% - 40px); padding: 12px 18px; transform: translateX(-50%); border: 1px solid #63efff; background: rgba(3, 23, 36, .9); box-shadow: 0 0 24px rgba(27, 230, 255, .26); color: #effcff; font-size: 13px; font-weight: 700; cursor: pointer; animation: promptPulse 1.8s ease-in-out infinite alternate; }
+.interactPrompt kbd { display: grid; width: 26px; height: 26px; place-items: center; border: 1px solid #65efff; color: #70f5ff; font-family: "Courier New", monospace; }
+.interactPrompt span { color: #70f5ff; font-size: 18px; }
+
+.terminalOverlay { position: absolute; z-index: 30; inset: 0; display: flex; align-items: center; justify-content: flex-end; padding: clamp(24px, 7vw, 110px); background: rgba(7, 10, 13, .27); backdrop-filter: blur(2px); }
+.terminalPanel { position: relative; width: min(100%, 450px); max-height: calc(100svh - 48px); overflow: auto; padding: clamp(30px, 4vw, 48px); border: 1px solid rgba(208, 178, 137, .57); border-radius: 14px; background: linear-gradient(145deg, rgba(31, 35, 38, .97), rgba(23, 28, 32, .96)); box-shadow: 0 28px 80px rgba(0, 0, 0, .38); }
+.terminalPanel .terminalKicker { color: #d9bc91; text-shadow: none; }
+.terminalPanel h2 { margin-top: 27px; font-size: clamp(36px, 4vw, 52px); font-weight: 800; line-height: 1.2; letter-spacing: -.065em; }
+.terminalPanel h2 span { color: #f5f0e8; }
+.terminalPanel h2 .panelAccent { color: #e0bc8d; text-shadow: none; }
+.terminalPanel p { margin-top: 21px; color: #bdc2bf; font-size: 15px; line-height: 1.85; word-break: keep-all; }
+.terminalPanel .panelClose { position: absolute; top: 18px; right: 23px; display: grid; width: 36px; height: 36px; min-width: 0; place-items: center; margin: 0; padding: 0; border: 1px solid rgba(207, 178, 139, .35); border-radius: 50%; background: rgba(50, 54, 54, .48); color: #eee3d3; font-size: 22px; font-weight: 300; cursor: pointer; }
+.terminalPanel .panelClose:hover { background: rgba(130, 110, 83, .45); }
+.terminalPanel .panelAction { display: flex; width: max-content; min-width: 210px; height: 51px; align-items: center; justify-content: space-between; gap: 25px; margin-top: 31px; padding: 0 18px; border: 1px solid #d8b88a; border-radius: 6px; background: rgba(143, 113, 76, .26); color: #f8f0e3; font-size: 13px; font-weight: 700; text-decoration: none; cursor: pointer; }
+.terminalPanel .panelAction:hover { background: rgba(143, 113, 76, .45); }
+.terminalPanel .contactPending { display: block; margin-top: 30px; color: #baab97; font-size: 12px; line-height: 1.7; }
+
+.touchControls { position: absolute; z-index: 15; bottom: 91px; left: 20px; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.touchControls div { display: flex; gap: 4px; }
+.touchControls button { display: grid; width: 53px; height: 53px; place-items: center; border: 1px solid rgba(95, 236, 255, .5); background: rgba(4, 27, 40, .68); color: #c5f8ff; font-size: 20px; touch-action: none; user-select: none; }
+.touchControls button:active { background: rgba(41, 137, 160, .68); }
+.mapCredit { position: absolute; z-index: 35; right: 20px; bottom: 5px; display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 0 6px; max-width: calc(100vw - 40px); color: rgba(198, 219, 225, .68); font-size: 9px; letter-spacing: .01em; }
+.mapCredit a { color: inherit; text-decoration: none; }
+.mapCredit a:hover { color: #e8fbff; }
+
+@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: .34; } }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(26px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes promptPulse { from { box-shadow: 0 0 14px rgba(27, 230, 255, .2); } to { box-shadow: 0 0 30px rgba(27, 230, 255, .45); } }
+@keyframes welcomeReveal { from { opacity: 0; transform: translateY(28px) scale(.97); } to { opacity: 1; transform: translateY(0) scale(1); } }
+@keyframes welcomeHalo { 0% { transform: translate(-50%, -50%) scale(.65); opacity: 0; } 35% { opacity: .8; } 100% { transform: translate(-50%, -50%) scale(1.25); opacity: 0; } }
+
+@media (max-width: 700px) {
+  .gameHeader { height: 64px; padding-inline: 20px; font-size: 9px; }
+  .districtLabel { margin-left: auto; font-size: 8px; letter-spacing: .07em; }
+  .gameClock { display: none; }
+  .entryOverlay { align-items: flex-end; padding: 90px 25px 52px; }
+  .entryOverlay::before { background: linear-gradient(to top, rgba(2, 5, 17, .93) 0%, rgba(2, 6, 18, .65) 50%, rgba(2, 6, 18, .15) 100%); }
+  .entryPanel h1 { font-size: clamp(58px, 15vw, 84px); }
+  .entryKorean { margin-top: 25px; font-size: 20px; }
+  .entryDescription { max-width: 350px; font-size: 13px; }
+  .entryControl { font-size: 9px; }
+  .gameHud { right: 20px; bottom: 23px; left: 20px; align-items: flex-end; }
+  .instructions { display: none; }
+  .interactPrompt { bottom: 200px; font-size: 12px; }
+  .returnToLake { top: 77px; left: 20px; font-size: 9px; }
+  .lobbyGuide { top: 120px; right: 20px; width: min(220px, calc(100vw - 40px)); padding: 13px; gap: 7px; }
+  .lobbyGuide strong { font-size: 12px; }
+  .lobbyGuide > span { font-size: 8px; }
+  .lobbyGuide button { font-size: 10px; padding-top: 7px; }
+  .cinematicCaption { bottom: 100px; }
+  .cinematic_welcome .cinematicCaption { bottom: 35%; }
+  .terminalOverlay { justify-content: center; padding: 20px; }
+}
+
+@media (max-height: 700px) and (min-width: 701px) {
+  .entryPanel h1 { font-size: clamp(76px, 8vw, 115px); }
+  .entryKorean { margin-top: 22px; }
+  .entryDescription { margin-top: 10px; }
+  .enterButton { margin-top: 20px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .game *, .game *::before, .game *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
+}

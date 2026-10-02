@@ -1,0 +1,49 @@
+@import "tailwindcss";
+
+:root {
+  --background: #f7f7f2;
+  --foreground: #171b1a;
+  --accent: #c7f05c;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-accent: var(--accent);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--foreground);
+}
+
+.grid-pattern {
+  background-image: linear-gradient(rgba(255,255,255,.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.07) 1px, transparent 1px);
+  background-size: 44px 44px;
+}
+
+.orb {
+  background: radial-gradient(circle at 32% 28%, #eeffbe 0%, #d7fa80 20%, #a7d74a 52%, #5c8934 78%, #253e22 100%);
+  box-shadow: inset -30px -35px 55px rgba(18, 39, 20, .25), 0 30px 90px rgba(174, 238, 95, .2);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .float-slow { animation: float 7s ease-in-out infinite; }
+  .float-delayed { animation: float 8s ease-in-out -2s infinite; }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+  }
+}
