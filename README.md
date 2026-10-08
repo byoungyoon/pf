@@ -29,4 +29,4 @@ Geographic sources, reproduction steps and the model's accuracy limits are docum
 
 ## Vercel
 
-The GitHub repository `byoungyoon/pf` is connected to the Vercel project [pf](https://vercel.com/byoungyoons-projects/pf) under `byoungyoons-projects`. Pushes to `main` deploy to production. `vercel.json` selects Next.js and the verified `npm run build -- --webpack` build command. Local `.vercel` metadata and environment files are ignored by Git.
+The live portfolio is [pf-xi-three.vercel.app](https://pf-xi-three.vercel.app), with the [coffee chat experience](https://pf-xi-three.vercel.app/coffee-chat). The GitHub repository `byoungyoon/pf` is connected to the Vercel project [pf](https://vercel.com/byoungyoons-projects/pf) under `byoungyoons-projects`. Pushes to `main` deploy to production. `vercel.json` selects Next.js and the verified `npm run build -- --webpack` build command. Local `.vercel` metadata and environment files are ignored by Git.

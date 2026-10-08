@@ -13,7 +13,7 @@ Read this first; use `LOG.md` for history. Source code and `ASSETS.md` remain au
 - All geography is local in `public/data/seoul*.json`; satellite imagery was reference-only. Sources, historical district date (2013), height estimates and regeneration scripts are documented in `ASSETS.md`.
 - Coffee contact: `NEXT_PUBLIC_COFFEE_CHAT_URL` must be `https://` or `mailto:`. Without it, the conversation clearly says the link is being prepared; do not invent a contact address. Mail subject defaults to “포트폴리오 커피챗” if missing.
 - Repository: `main` tracks `git@github.com:byoungyoon/pf.git`. Do not push unless current authorization covers it.
-- Hosting: Vercel project `pf` in `byoungyoons-projects`, connected to `byoungyoon/pf`; production branch `main`. Existing Vercel `portfolio` belongs to a different repo and must not be repointed. `vercel.json` sets Next.js + verified Webpack build; `.vercel` and `.env*` remain ignored. User authorized connecting/publishing this project on 2026-10-08.
+- Hosting: Vercel project `pf` in `byoungyoons-projects`, connected to `byoungyoon/pf`; production branch `main`, public URL `https://pf-xi-three.vercel.app`. Existing Vercel `portfolio` belongs to a different repo and must not be repointed. `vercel.json` and project settings use Next.js + verified Webpack build; `.vercel` and `.env*` remain ignored. User authorized connecting/publishing this project on 2026-10-08.
 
 ## Checks
 
