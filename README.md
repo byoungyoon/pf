@@ -26,3 +26,7 @@ npm run build -- --webpack
 ```
 
 Geographic sources, reproduction steps and the model's accuracy limits are documented in [ASSETS.md](ASSETS.md). All runtime geography is local; no satellite images, map API credentials or external tile requests are required.
+
+## Vercel
+
+The GitHub repository `byoungyoon/pf` is connected to the Vercel project [pf](https://vercel.com/byoungyoons-projects/pf) under `byoungyoons-projects`. Pushes to `main` deploy to production. `vercel.json` selects Next.js and the verified `npm run build -- --webpack` build command. Local `.vercel` metadata and environment files are ignored by Git.

@@ -1,6 +1,7 @@
 node_modules
 .next
 .next-build-check
+.vercel
 out
 .env*
 !.env.example
