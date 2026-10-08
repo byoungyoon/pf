@@ -1,6 +1,10 @@
-# Jamsil coffee chat portfolio
+# Seoul coffee chat portfolio
 
-Next.js, Tailwind CSS, and Three.js portfolio with a walkable Seokchon Lake scene and a fictional cafe inside Lotte World Tower. The exterior geography is based on OpenStreetMap data; the cafe and its window skyline are artistic interpretations.
+Next.js, Tailwind CSS and Three.js portfolio. `/coffee-chat` starts inside a moving subway, pulls back to Seoul, then reveals a central glass conversation panel. The story connects an everyday commute with a wider, positive view of working together. Real elevation, river banks, roads and central building footprints support the city; local CC0 building models add variety outside detailed areas.
+
+The conversation contains authored portfolio notes, not AI-generated replies. Visitors can ask about work, collaboration and coffee chat. “서울 둘러보기” opens the six-place atlas and preserves the conversation when returning. Replay, skip and reduced-motion support are included.
+
+The final city sits below the headline, keeps a gentle automatic rotation and blends into a blue/violet sky. The circular plinth fades for conversation and returns during exploration. Camera composition settles throughout the pullback rather than jumping on arrival.
 
 ## Run locally
 
@@ -9,15 +13,16 @@ npm install
 npm run dev
 ```
 
-Open [http://localhost:3020](http://localhost:3020). The coffee chat scene is at `/coffee-chat`.
+Open [http://localhost:3020/coffee-chat](http://localhost:3020/coffee-chat). `/` remains the portfolio landing page.
 
-Set `NEXT_PUBLIC_COFFEE_CHAT_URL` to an `https://` or `mailto:` URL to enable the coffee chat contact link. Without it, the invitation remains a preview.
+Set `NEXT_PUBLIC_COFFEE_CHAT_URL` to an `https://` or `mailto:` URL to enable contact. Without it, the conversation says the contact link is being prepared. A mail link receives “포트폴리오 커피챗” as its subject when no subject is already configured.
 
 ## Checks
 
 ```bash
 npm run lint
-npm run build
+npx tsc --noEmit
+npm run build -- --webpack
 ```
 
-Asset sources and licenses are documented in [ASSETS.md](ASSETS.md). `scripts/download-lobby-assets.mjs` downloads the Poly Haven cafe models again when needed.
+Geographic sources, reproduction steps and the model's accuracy limits are documented in [ASSETS.md](ASSETS.md). All runtime geography is local; no satellite images, map API credentials or external tile requests are required.
